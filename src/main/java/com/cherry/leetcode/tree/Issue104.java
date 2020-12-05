@@ -2,6 +2,9 @@ package com.cherry.leetcode.tree;
 
 import com.cherry.leetcode.common.TreeNode;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * @Author: Cherry
  * @Date: 2020/12/5
@@ -20,8 +23,7 @@ public class Issue104 {
         }
         int maxDepthLeft = maxDepth(root.left);
         int maxDepthRight = maxDepth(root.right);
-        int max = Math.max(maxDepthLeft, maxDepthRight);
-        return 0;
+        return Math.max(maxDepthLeft, maxDepthRight) + 1;
     }
 
     /**
@@ -31,8 +33,29 @@ public class Issue104 {
      * @return
      */
     public int maxDepthBFS(TreeNode root) {
-        return 0;
+        if (root == null) {
+            return 0;
+        }
+        Queue<TreeNode> visit = new LinkedList<>();
+        int level = 0;
+        visit.add(root);
+        while (!visit.isEmpty()) {
+            int size = visit.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode element = visit.remove();
+                if (element.left != null) {
+                    visit.add(element.left);
+                }
+                if (element.right != null) {
+                    visit.add(element.right);
+                }
+            }
+            level++;
+        }
+        return level;
     }
+
+    private int maxLevel = 0;
 
     /**
      * DFS
@@ -41,7 +64,24 @@ public class Issue104 {
      * @return
      */
     public int maxDepthDFS(TreeNode root) {
-        return 0;
+        if (root == null) {
+            return 0;
+        }
+        dfs(root, 1);
+        return maxLevel;
+    }
+
+    private int dfs(TreeNode root, int level) {
+        if (root == null) {
+            return 0;
+        }
+        if (level > maxLevel) {
+            maxLevel = new Integer(level);
+        }
+        dfs(root.left, level + 1);
+        dfs(root.right, level + 1);
+
+        return maxLevel;
     }
 
 }
