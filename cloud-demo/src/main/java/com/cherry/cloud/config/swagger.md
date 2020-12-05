@@ -1,4 +1,8 @@
 # swagger2.x
+## url
+```text
+http://localhost:8081/swagger-ui.html
+```
 ## pom
 ```xml
 <swagger2.version>2.9.2</swagger2.version>
@@ -66,7 +70,10 @@ public class HelloController {
 ```
 
 # swagger3.x
-
+## url
+```text
+http://localhost:8081/swagger-ui/index.html
+```
 ## pom
 ```xml
 <dependency>
