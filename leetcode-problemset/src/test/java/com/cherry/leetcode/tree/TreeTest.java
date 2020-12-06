@@ -3,6 +3,8 @@ package com.cherry.leetcode.tree;
 import com.cherry.leetcode.common.TreeNode;
 import org.junit.Test;
 
+import java.util.List;
+
 /**
  * @Author: Cherry
  * @Date: 2020/12/5
@@ -35,5 +37,13 @@ public class TreeTest {
         depth = issue104.maxDepthDFS(TreeTest.mockTree());
         System.out.println(depth);
     }
+
+    @Test
+    public void testIssue107() {
+        Issue107 issue107 = new Issue107();
+        List<List<Integer>> result = issue107.levelOrderBottom(TreeTest.mockTree());
+        System.out.println(result);
+    }
+
 
 }
