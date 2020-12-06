@@ -6,6 +6,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>cloud-demo</module>
+        <module>elasticsearch-demo</module>
+        <module>leetcode-problemset</module>
     </modules>
 
     <parent>
