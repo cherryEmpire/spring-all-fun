@@ -20,7 +20,7 @@
 
     <groupId>com.cherry.leetcode</groupId>
     <artifactId>leetcode</artifactId>
-    <version>1.0.0.RC</version>
+    <version>1.0.1.RC</version>
 
     <!-- 统一管理jar包版本 -->
     <properties>
