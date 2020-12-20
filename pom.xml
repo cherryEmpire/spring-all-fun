@@ -9,6 +9,7 @@
         <module>elasticsearch-demo</module>
         <module>leetcode-problemset</module>
         <module>cherry-common</module>
+        <module>send-email-demo</module>
     </modules>
 
     <parent>
