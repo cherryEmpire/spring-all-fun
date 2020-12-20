@@ -51,4 +51,16 @@ public class CommonResult<T> {
         this.message = StringUtils.isBlank(errorMsg) ? "ERROR" : errorMsg;
         return this;
     }
+
+    public static CommonResult succeed(Object data) {
+        CommonResult<Object> commonResult = new CommonResult<>();
+        commonResult.success(data);
+        return commonResult;
+    }
+
+    public static CommonResult failed(String errorMsg) {
+        CommonResult<Object> commonResult = new CommonResult<>();
+        commonResult.error(errorMsg);
+        return commonResult;
+    }
 }

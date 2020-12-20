@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2020/12/8
  * @Desc: ElasticSearchDocumentController
  */
-@RestController("/elk/doc")
+@RestController
+@RequestMapping("/elk/doc")
 @Api("ElasticSearchDocumentController: 文档管理")
 public class ElasticSearchDocumentController {
 
