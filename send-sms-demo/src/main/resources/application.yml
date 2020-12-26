@@ -1,0 +1,4 @@
+spring:
+  sms:
+    accessKeyId: todo
+    accessKeySecret: todo
