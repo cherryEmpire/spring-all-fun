@@ -10,6 +10,10 @@
         <module>leetcode-problemset</module>
         <module>cherry-common</module>
         <module>send-email-demo</module>
+        <module>schedule-demo</module>
+        <module>quartz-demo</module>
+        <module>db-common</module>
+        <module>send-sms-demo</module>
     </modules>
 
     <parent>
@@ -34,7 +38,6 @@
         <mysql.version>8.0.16</mysql.version>
         <druid.version>1.1.16</druid.version>
         <hutool.version>5.5.2</hutool.version>
-        <mybatis.spring.boot.version>1.3.0</mybatis.spring.boot.version>
     </properties>
 
     <dependencies>
@@ -52,12 +55,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis.spring.boot.version}</version>
         </dependency>
 
         <dependency>

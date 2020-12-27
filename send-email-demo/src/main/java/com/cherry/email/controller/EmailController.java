@@ -22,7 +22,7 @@ public class EmailController {
     @Autowired
     private EmailService emailService;
 
-    @PostMapping("send")
+    @PostMapping("/send")
     @ApiOperation(tags = "发送不带附件的邮件", value = "发送不带附件的邮件")
     public CommonResult send(String to, String subject, String text) {
         return emailService.sendTextMail(to, subject, text);
