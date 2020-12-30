@@ -1,0 +1,57 @@
+.span-name {
+    position: absolute;
+    line-height : 48px;
+    /*width: 30%;*/
+    margin-left: 0%;
+    text-align: left;
+}
+.span-size {
+    line-height : 48px;
+    position: absolute;
+    left: 38%;
+    width: 10%;
+    text-align: center;
+}
+
+.span-time {
+    position: absolute;
+    left: 53%;
+    width: 40%;
+    line-height : 48px;
+    text-align: center;
+}
+.span-icon-dirClose {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    background: url(../images/dirClose.png) no-repeat center;
+}
+.span-icon-dirOpen {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    background: url(../images/dirOpen.png) no-repeat center;
+}
+.span-icon-file {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    background: url(../images/file.png) no-repeat center;
+}
+.span-icon-system {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    background: url(../images/system.png) no-repeat center;
+}
+.div-node {
+    font-size: 20px;
+    font-family: "幼圆";
+    border: 1px rgb(235, 227, 181) solid;
+}
+.div-node:hover {
+    background: rgb(67, 226, 218);
+}
+.div-node:active {
+    background: rgb(11, 223, 64);
+}

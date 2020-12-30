@@ -1,0 +1,35 @@
+<html>
+<meta charset=utf-8 />
+<title>一叶飘零视频列表</title>
+<link rel="StyleSheet " href="style/index.css " type="text/css ">
+<link rel="StyleSheet " href="style/tree.css " type="text/css ">
+<!-- 引入样式 -->
+<link rel="stylesheet" href="//unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+<script src="//unpkg.com/vue/dist/vue.js"></script>
+<script src="//unpkg.com/element-ui@2.14.1/lib/index.js"></script>
+<head>
+<!--    <div class="div-head ">一叶飘零视频列表</div>-->
+</head>
+
+<body>
+<div id="app">
+    <el-tree
+            :data="data"
+            :props="defaultProps"
+            accordion
+            @node-click="handleNodeClick">
+    </el-tree>
+</div>
+
+<!--<div id="VIDEO_LIST">-->
+
+<!--</div>-->
+<!--<div id="FILE_LIST">-->
+
+<!--</div>-->
+</body>
+<script src="demo/Ajax.js "></script>
+<script src="demo/Utils.js "></script>
+<script src="ele/Main.js "></script>
+
+</html>

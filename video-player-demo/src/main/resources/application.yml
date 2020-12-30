@@ -1,0 +1,10 @@
+#端口
+server:
+  port: 9001
+
+#设置静态资源的访问根路径为 /
+spring:
+  thymeleaf:
+    cache: false   #页面模板缓存
+
+fileroot: E:\\学习视频\\Happy学习视屏\\Eclipse\\Luna

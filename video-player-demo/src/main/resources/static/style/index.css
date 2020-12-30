@@ -1,0 +1,58 @@
+ul {
+    list-style-type: none;
+}
+
+div {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    position: relative;
+    animation: open 1s;
+}
+
+.div-head {
+    border: 3px rgb(235, 227, 181) solid;
+    height: 60px;
+    padding-left: 30px;
+    padding-top: 25px;
+    font-size: 45px;
+    font-family: "黑体";
+    font-weight: bold;
+    text-shadow: 4px 4px 4px rgb(255, 255, 255);
+    box-shadow: 6px 6px 3px grey;
+    background: rgb(46, 167, 223);
+}
+
+.div-system {
+    line-height: 48px;
+    font-size: 28px;
+    font-family: "黑体";
+    font-weight: bold;
+}
+
+#myul {
+    border: 1px;
+    width: 100%;
+}
+
+#video_player {
+    width: 800px;
+    height: 400px;
+}
+
+#video_player_p {
+    text-align: center;
+    margin-top: 50px;
+}
+
+@keyframes open {
+    0% {
+        left: 600px;
+        top: 0%;
+    }
+    100% {
+        left: 0%;
+        top: 0%;
+    }
+}
