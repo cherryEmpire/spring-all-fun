@@ -1,8 +1,9 @@
 package com.cherry.cloud.controller;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -14,10 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @ApiOperation("test hello")
-    @GetMapping("/hello")
+//    @ApiOperation("test hello")
+//    @GetMapping("/hello")
+//    public String hello() {
+//        return "Hello";
+//    }
+
+    @RequestMapping("/test")
     public String hello() {
-        return "Hello";
+        return "hello";
+    }
+
+    @Autowired
+    @RequestMapping(value = "/{text:[a-z-]+}.{number:[\\d]+}")
+    public String hello1(@PathVariable String text, @PathVariable String number) {
+        return "hello";
     }
 
 }
