@@ -11,6 +11,8 @@ import java.util.Queue;
  * @Desc: Issue104 Maximum Depth of Binary Tree
  */
 public class Issue104 {
+    private int maxLevel = 0;
+
     /**
      * 递归
      *
@@ -54,8 +56,6 @@ public class Issue104 {
         }
         return level;
     }
-
-    private int maxLevel = 0;
 
     /**
      * DFS

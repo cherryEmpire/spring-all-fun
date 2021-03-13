@@ -1,8 +1,5 @@
 package com.cherry.common.util;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -56,8 +53,8 @@ public class ReduceImg {
             //创建文件输出流
             FileOutputStream out = new FileOutputStream(imgdist);
             //将图片按JPEG压缩，保存到out中
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-            encoder.encode(tag);
+//            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);?
+//            encoder.encode(tag);
             //关闭文件输出流
             out.close();
         } catch (Exception ef) {
@@ -68,14 +65,14 @@ public class ReduceImg {
     public static int[] getImgWidthHeight(File file) {
         InputStream is = null;
         BufferedImage src = null;
-        int result[] = { 0, 0 };
+        int result[] = {0, 0};
         try {
             // 获得文件输入流
             is = new FileInputStream(file);
             // 从流里将图片写入缓冲图片区
             src = ImageIO.read(is);
-            result[0] =src.getWidth(null); // 得到源图片宽
-            result[1] =src.getHeight(null);// 得到源图片高
+            result[0] = src.getWidth(null); // 得到源图片宽
+            result[1] = src.getHeight(null);// 得到源图片高
             is.close();  //关闭输入流
         } catch (Exception ef) {
             ef.printStackTrace();

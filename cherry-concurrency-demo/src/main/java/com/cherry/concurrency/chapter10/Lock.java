@@ -4,23 +4,23 @@ import java.util.Collection;
 
 public interface Lock {
 
-	class TimeOutException extends Exception {
+    void lock() throws InterruptedException;
 
-		private static final long serialVersionUID = -1085050040900868917L;
+    void lock(long mills) throws InterruptedException, TimeOutException;
 
-		public TimeOutException(String message) {
-			super(message);
-		}
-	}
+    void unlock();
 
-	void lock() throws InterruptedException;
+    Collection<Thread> getBlockedThread();
 
-	void lock(long mills) throws InterruptedException, TimeOutException;
+    int getBlockedSize();
 
-	void unlock();
+    class TimeOutException extends Exception {
 
-	Collection<Thread> getBlockedThread();
+        private static final long serialVersionUID = -1085050040900868917L;
 
-	int getBlockedSize();
+        public TimeOutException(String message) {
+            super(message);
+        }
+    }
 
 }

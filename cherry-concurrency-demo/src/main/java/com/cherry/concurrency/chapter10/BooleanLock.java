@@ -29,7 +29,7 @@ public class BooleanLock implements Lock {
         blockedThreadCollection.remove(Thread.currentThread());
         this.initValue = true;
         this.currentThread = Thread.currentThread();
-    } 
+    }
 
     @Override
     public synchronized void lock(long mills) throws InterruptedException, TimeOutException {

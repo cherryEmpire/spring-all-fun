@@ -15,6 +15,18 @@ public class CommonResult<T> {
 
     private T data;
 
+    public static CommonResult succeed(Object data) {
+        CommonResult<Object> commonResult = new CommonResult<>();
+        commonResult.success(data);
+        return commonResult;
+    }
+
+    public static CommonResult failed(String errorMsg) {
+        CommonResult<Object> commonResult = new CommonResult<>();
+        commonResult.error(errorMsg);
+        return commonResult;
+    }
+
     public int getCode() {
         return code;
     }
@@ -50,17 +62,5 @@ public class CommonResult<T> {
         this.code = 500;
         this.message = StringUtils.isBlank(errorMsg) ? "ERROR" : errorMsg;
         return this;
-    }
-
-    public static CommonResult succeed(Object data) {
-        CommonResult<Object> commonResult = new CommonResult<>();
-        commonResult.success(data);
-        return commonResult;
-    }
-
-    public static CommonResult failed(String errorMsg) {
-        CommonResult<Object> commonResult = new CommonResult<>();
-        commonResult.error(errorMsg);
-        return commonResult;
     }
 }

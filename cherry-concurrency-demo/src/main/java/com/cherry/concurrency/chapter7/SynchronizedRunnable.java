@@ -2,10 +2,9 @@ package com.cherry.concurrency.chapter7;
 
 public class SynchronizedRunnable implements Runnable {
 
-    private int index = 1;
-
     //readonly shared data.
     private final static int MAX = 500;
+    private int index = 1;
 
     //this
     @Override

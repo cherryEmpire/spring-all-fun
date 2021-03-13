@@ -10,11 +10,11 @@ public enum FileType {
     DIR("dir"),
     FILE("file");
 
+    private String type;
+
     FileType(String type) {
         this.type = type;
     }
-
-    private String type;
 
     public String getType() {
         return type;

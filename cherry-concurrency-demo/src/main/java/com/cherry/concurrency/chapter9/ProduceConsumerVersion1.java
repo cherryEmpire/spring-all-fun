@@ -2,21 +2,8 @@ package com.cherry.concurrency.chapter9;
 
 public class ProduceConsumerVersion1 {
 
-    private int i = 1;
-
     final private Object LOCK = new Object();
-
-    private void produce() {
-        synchronized (LOCK) {
-            System.out.println("P->" + (i++));
-        }
-    }
-
-    private void consume() {
-        synchronized (LOCK) {
-            System.out.println("C->" + i);
-        }
-    }
+    private int i = 1;
 
     public static void main(String[] args) {
 
@@ -37,5 +24,17 @@ public class ProduceConsumerVersion1 {
                     pc.consume();
             }
         }.start();
+    }
+
+    private void produce() {
+        synchronized (LOCK) {
+            System.out.println("P->" + (i++));
+        }
+    }
+
+    private void consume() {
+        synchronized (LOCK) {
+            System.out.println("C->" + i);
+        }
     }
 }

@@ -1,9 +1,13 @@
 # swagger2.x
+
 ## url
+
 ```text
 http://localhost:8081/swagger-ui.html
 ```
+
 ## pom
+
 ```xml
 <swagger2.version>2.9.2</swagger2.version>
 <dependency>
@@ -17,7 +21,9 @@ http://localhost:8081/swagger-ui.html
     <version>${swagger2.version}</version>
 </dependency>
 ```
+
 ## config
+
 ```java
 @Configuration
 @EnableSwagger2
@@ -54,7 +60,9 @@ public class Swagger2Configuration {
     }
 }
 ```
+
 ## demo
+
 ```java
 @Api("HelloController")
 @RestController
@@ -70,11 +78,15 @@ public class HelloController {
 ```
 
 # swagger3.x
+
 ## url
+
 ```text
 http://localhost:8081/swagger-ui/index.html
 ```
+
 ## pom
+
 ```xml
 <dependency>
     <groupId>io.springfox</groupId>
@@ -84,6 +96,7 @@ http://localhost:8081/swagger-ui/index.html
 ```
 
 ## config
+
 ```java
 @Configuration
 public class SwaggerWebMvcConfig implements WebMvcConfigurer {

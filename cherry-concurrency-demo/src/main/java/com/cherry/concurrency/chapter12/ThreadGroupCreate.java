@@ -31,7 +31,7 @@ public class ThreadGroupCreate {
         Thread t2 = new Thread(tg2, "T2") {
             @Override
             public void run() {
-                System.out.println(">>>"+tg1.getName());
+                System.out.println(">>>" + tg1.getName());
                 Thread[] threads = new Thread[tg1.activeCount()];
                 tg1.enumerate(threads);
 

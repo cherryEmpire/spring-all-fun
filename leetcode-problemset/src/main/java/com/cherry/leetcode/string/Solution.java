@@ -7,6 +7,11 @@ package com.cherry.leetcode.string;
  */
 public class Solution {
 
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        System.out.println(solution.solution("011100"));
+    }
+
     public int solution(String s) {
         if (s == null || s.length() == 0) {
             return 0;
@@ -30,10 +35,5 @@ public class Solution {
             count++;
         }
         return count;
-    }
-
-    public static void main(String[] args) {
-        Solution solution = new Solution();
-        System.out.println(solution.solution("011100"));
     }
 }

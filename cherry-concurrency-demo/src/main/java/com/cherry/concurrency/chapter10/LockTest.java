@@ -11,7 +11,7 @@ public class LockTest {
                 .forEach(name ->
                         new Thread(() -> {
                             try {
-                            	//booleanLock.lock();
+                                //booleanLock.lock();
                                 booleanLock.lock(100L);
                                 Optional.of(Thread.currentThread().getName() + " have the lock Monitor")
                                         .ifPresent(System.out::println);
@@ -22,7 +22,7 @@ public class LockTest {
                                 Optional.of(Thread.currentThread().getName() + " time out")
                                         .ifPresent(System.out::println);
                             } finally {
-                                 booleanLock.unlock();
+                                booleanLock.unlock();
                             }
                         }, name).start()
                 );

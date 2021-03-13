@@ -7,248 +7,239 @@ import java.util.List;
 
 public class SimpleThreadPool extends Thread {
 
-	private int size;
+    public final static DiscardPolicy DEFAULT_DISCARD_POLICY = () -> {
+        throw new DiscardException("Discard This Task.");
+    };
+    private final static int DEFAULT_TASK_QUEUE_SIZE = 2000;
+    private final static String THREAD_PREFIX = "SIMPLE_THREAD_POOL-";
+    private final static ThreadGroup GROUP = new ThreadGroup("Pool_Group");
+    private final static LinkedList<Runnable> TASK_QUEUE = new LinkedList<>();
+    private final static List<WorkerTask> THREAD_QUEUE = new ArrayList<>();
+    private static volatile int seq = 0;
+    private final int queueSize;
+    private final DiscardPolicy discardPolicy;
+    private int size;
+    private volatile boolean destroy = false;
 
-	private final int queueSize;
+    private int min;
 
-	private final static int DEFAULT_TASK_QUEUE_SIZE = 2000;
+    private int max;
 
-	private static volatile int seq = 0;
+    private int active;
 
-	private final static String THREAD_PREFIX = "SIMPLE_THREAD_POOL-";
+    public SimpleThreadPool() {
+        this(4, 8, 12, DEFAULT_TASK_QUEUE_SIZE, DEFAULT_DISCARD_POLICY);
+    }
 
-	private final static ThreadGroup GROUP = new ThreadGroup("Pool_Group");
+    public SimpleThreadPool(int min, int active, int max, int queueSize, DiscardPolicy discardPolicy) {
+        this.min = min;
+        this.active = active;
+        this.max = max;
+        this.queueSize = queueSize;
+        this.discardPolicy = discardPolicy;
+        init();
+    }
 
-	private final static LinkedList<Runnable> TASK_QUEUE = new LinkedList<>();
+    public static void main(String[] args) throws InterruptedException {
+        SimpleThreadPool threadPool = new SimpleThreadPool();
+        for (int i = 0; i < 40; i++) {
+            threadPool.submit(() -> {
+                System.out.println("The runnable  be serviced by " + Thread.currentThread() + " start.");
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("The runnable be serviced by " + Thread.currentThread() + " finished.");
+            });
+        }
 
-	private final static List<WorkerTask> THREAD_QUEUE = new ArrayList<>();
+        Thread.sleep(10000);
+        threadPool.shutdown();
 
-	private final DiscardPolicy discardPolicy;
+        /*
+         * Thread.sleep(10000); threadPool.shutdown(); threadPool.submit(() ->
+         * System.out.println("======="));
+         */
+    }
 
-	public final static DiscardPolicy DEFAULT_DISCARD_POLICY = () -> {
-		throw new DiscardException("Discard This Task.");
-	};
+    private void init() {
+        for (int i = 0; i < this.min; i++) {
+            createWorkTask();
+        }
+        this.size = min;
+        this.start();
+    }
 
-	private volatile boolean destroy = false;
+    public void submit(Runnable runnable) {
+        if (destroy)
+            throw new IllegalStateException("The thread pool already destroy and not allow submit task.");
 
-	private int min;
+        synchronized (TASK_QUEUE) {
+            if (TASK_QUEUE.size() > queueSize)
+                discardPolicy.discard();
+            TASK_QUEUE.addLast(runnable);
+            TASK_QUEUE.notifyAll();
+        }
+    }
 
-	private int max;
+    @Override
+    public void run() {
+        while (!destroy) {
+            System.out.printf("Pool#Min:%d,Active:%d,Max:%d,Current:%d,QueueSize:%d\n", this.min, this.active, this.max,
+                    this.size, TASK_QUEUE.size());
+            try {
+                Thread.sleep(5_000L);
+                if (TASK_QUEUE.size() > active && size < active) {
+                    for (int i = size; i < active; i++) {
+                        createWorkTask();
+                    }
+                    System.out.println("The pool incremented to active.");
+                    size = active;
+                } else if (TASK_QUEUE.size() > max && size < max) {
+                    for (int i = size; i < max; i++) {
+                        createWorkTask();
+                    }
+                    System.out.println("The pool incremented to max.");
+                    size = max;
+                }
 
-	private int active;
+                synchronized (THREAD_QUEUE) {
+                    if (TASK_QUEUE.isEmpty() && size > active) {
+                        System.out.println("=========Reduce========");
+                        int releaseSize = size - active;
+                        for (Iterator<WorkerTask> it = THREAD_QUEUE.iterator(); it.hasNext(); ) {
+                            if (releaseSize <= 0)
+                                break;
 
-	public SimpleThreadPool() {
-		this(4, 8, 12, DEFAULT_TASK_QUEUE_SIZE, DEFAULT_DISCARD_POLICY);
-	}
+                            WorkerTask task = it.next();
+                            task.close();
+                            task.interrupt();
+                            it.remove();
+                            releaseSize--;
+                        }
+                        size = active;
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-	public SimpleThreadPool(int min, int active, int max, int queueSize, DiscardPolicy discardPolicy) {
-		this.min = min;
-		this.active = active;
-		this.max = max;
-		this.queueSize = queueSize;
-		this.discardPolicy = discardPolicy;
-		init();
-	}
+    private void createWorkTask() {
+        WorkerTask task = new WorkerTask(GROUP, THREAD_PREFIX + (seq++));
+        task.start();
+        THREAD_QUEUE.add(task);
+    }
 
-	private void init() {
-		for (int i = 0; i < this.min; i++) {
-			createWorkTask();
-		}
-		this.size = min;
-		this.start();
-	}
+    public void shutdown() throws InterruptedException {
+        while (!TASK_QUEUE.isEmpty()) {
+            Thread.sleep(50);
+        }
 
-	public void submit(Runnable runnable) {
-		if (destroy)
-			throw new IllegalStateException("The thread pool already destroy and not allow submit task.");
+        synchronized (THREAD_QUEUE) {
+            int initVal = THREAD_QUEUE.size();
+            while (initVal > 0) {
+                for (WorkerTask task : THREAD_QUEUE) {
+                    if (task.getTaskState() == TaskState.BLOCKED) {
+                        task.interrupt();
+                        task.close();
+                        initVal--;
+                    } else {
+                        Thread.sleep(10);
+                    }
+                }
+            }
+        }
 
-		synchronized (TASK_QUEUE) {
-			if (TASK_QUEUE.size() > queueSize)
-				discardPolicy.discard();
-			TASK_QUEUE.addLast(runnable);
-			TASK_QUEUE.notifyAll();
-		}
-	}
+        System.out.println(GROUP.activeCount());
 
-	@Override
-	public void run() {
-		while (!destroy) {
-			System.out.printf("Pool#Min:%d,Active:%d,Max:%d,Current:%d,QueueSize:%d\n", this.min, this.active, this.max,
-					this.size, TASK_QUEUE.size());
-			try {
-				Thread.sleep(5_000L);
-				if (TASK_QUEUE.size() > active && size < active) {
-					for (int i = size; i < active; i++) {
-						createWorkTask();
-					}
-					System.out.println("The pool incremented to active.");
-					size = active;
-				} else if (TASK_QUEUE.size() > max && size < max) {
-					for (int i = size; i < max; i++) {
-						createWorkTask();
-					}
-					System.out.println("The pool incremented to max.");
-					size = max;
-				}
+        this.destroy = true;
+        System.out.println("The thread pool disposed.");
+    }
 
-				synchronized (THREAD_QUEUE) {
-					if (TASK_QUEUE.isEmpty() && size > active) {
-						System.out.println("=========Reduce========");
-						int releaseSize = size - active;
-						for (Iterator<WorkerTask> it = THREAD_QUEUE.iterator(); it.hasNext();) {
-							if (releaseSize <= 0)
-								break;
+    public int getQueueSize() {
+        return queueSize;
+    }
 
-							WorkerTask task = it.next();
-							task.close();
-							task.interrupt();
-							it.remove();
-							releaseSize--;
-						}
-						size = active;
-					}
-				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+    public int getSize() {
+        return size;
+    }
 
-	private void createWorkTask() {
-		WorkerTask task = new WorkerTask(GROUP, THREAD_PREFIX + (seq++));
-		task.start();
-		THREAD_QUEUE.add(task);
-	}
+    public boolean isDestroy() {
+        return this.destroy;
+    }
 
-	public void shutdown() throws InterruptedException {
-		while (!TASK_QUEUE.isEmpty()) {
-			Thread.sleep(50);
-		}
+    public int getMin() {
+        return min;
+    }
 
-		synchronized (THREAD_QUEUE) {
-			int initVal = THREAD_QUEUE.size();
-			while (initVal > 0) {
-				for (WorkerTask task : THREAD_QUEUE) {
-					if (task.getTaskState() == TaskState.BLOCKED) {
-						task.interrupt();
-						task.close();
-						initVal--;
-					} else {
-						Thread.sleep(10);
-					}
-				}
-			}
-		}
+    public int getMax() {
+        return max;
+    }
 
-		System.out.println(GROUP.activeCount());
+    public int getActive() {
+        return active;
+    }
 
-		this.destroy = true;
-		System.out.println("The thread pool disposed.");
-	}
+    private enum TaskState {
+        FREE, RUNNING, BLOCKED, DEAD
+    }
 
-	public int getQueueSize() {
-		return queueSize;
-	}
+    public interface DiscardPolicy {
 
-	public int getSize() {
-		return size;
-	}
+        void discard() throws DiscardException;
+    }
 
-	public boolean isDestroy() {
-		return this.destroy;
-	}
+    public static class DiscardException extends RuntimeException {
 
-	public int getMin() {
-		return min;
-	}
+        private static final long serialVersionUID = -818116548755028905L;
 
-	public int getMax() {
-		return max;
-	}
+        public DiscardException(String message) {
+            super(message);
+        }
+    }
 
-	public int getActive() {
-		return active;
-	}
+    private static class WorkerTask extends Thread {
 
-	private enum TaskState {
-		FREE, RUNNING, BLOCKED, DEAD
-	}
+        private volatile TaskState taskState = TaskState.FREE;
 
-	public static class DiscardException extends RuntimeException {
+        public WorkerTask(ThreadGroup group, String name) {
+            super(group, name);
+        }
 
-		private static final long serialVersionUID = -818116548755028905L;
+        public TaskState getTaskState() {
+            return this.taskState;
+        }
 
-		public DiscardException(String message) {
-			super(message);
-		}
-	}
+        public void run() {
+            OUTER:
+            while (this.taskState != TaskState.DEAD) {
+                Runnable runnable;
+                synchronized (TASK_QUEUE) {
+                    while (TASK_QUEUE.isEmpty()) {
+                        try {
+                            taskState = TaskState.BLOCKED;
+                            TASK_QUEUE.wait();
+                        } catch (InterruptedException e) {
+                            System.out.println("Closed.");
+                            break OUTER;
+                        }
+                    }
+                    runnable = TASK_QUEUE.removeFirst();
+                }
 
-	public interface DiscardPolicy {
+                if (runnable != null) {
+                    taskState = TaskState.RUNNING;
+                    runnable.run();
+                    taskState = TaskState.FREE;
+                }
+            }
+        }
 
-		void discard() throws DiscardException;
-	}
-
-	private static class WorkerTask extends Thread {
-
-		private volatile TaskState taskState = TaskState.FREE;
-
-		public WorkerTask(ThreadGroup group, String name) {
-			super(group, name);
-		}
-
-		public TaskState getTaskState() {
-			return this.taskState;
-		}
-
-		public void run() {
-			OUTER: while (this.taskState != TaskState.DEAD) {
-				Runnable runnable;
-				synchronized (TASK_QUEUE) {
-					while (TASK_QUEUE.isEmpty()) {
-						try {
-							taskState = TaskState.BLOCKED;
-							TASK_QUEUE.wait();
-						} catch (InterruptedException e) {
-							System.out.println("Closed.");
-							break OUTER;
-						}
-					}
-					runnable = TASK_QUEUE.removeFirst();
-				}
-
-				if (runnable != null) {
-					taskState = TaskState.RUNNING;
-					runnable.run();
-					taskState = TaskState.FREE;
-				}
-			}
-		}
-
-		public void close() {
-			this.taskState = TaskState.DEAD;
-		}
-	}
-
-	public static void main(String[] args) throws InterruptedException {
-		SimpleThreadPool threadPool = new SimpleThreadPool();
-		for (int i = 0; i < 40; i++) {
-			threadPool.submit(() -> {
-				System.out.println("The runnable  be serviced by " + Thread.currentThread() + " start.");
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				System.out.println("The runnable be serviced by " + Thread.currentThread() + " finished.");
-			});
-		}
-
-		Thread.sleep(10000);
-		threadPool.shutdown();
-
-		/*
-		 * Thread.sleep(10000); threadPool.shutdown(); threadPool.submit(() ->
-		 * System.out.println("======="));
-		 */
-	}
+        public void close() {
+            this.taskState = TaskState.DEAD;
+        }
+    }
 }

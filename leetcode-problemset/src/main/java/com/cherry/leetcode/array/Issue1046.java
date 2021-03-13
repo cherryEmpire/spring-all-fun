@@ -7,6 +7,13 @@ package com.cherry.leetcode.array;
  * TODO
  */
 public class Issue1046 {
+    public static void main(String[] args) {
+        for (int i = 0; i < 999; i++) {
+            System.out.println((int) ((Math.random() * 9 + 1) * 100000));
+        }
+
+    }
+
     public int lastStoneWeight(int[] stones) {
         if (stones == null || stones.length == 0) {
             return 0;
@@ -15,12 +22,5 @@ public class Issue1046 {
         int y;
 
         return -1;
-    }
-
-    public static void main(String[] args) {
-        for (int i = 0; i < 999; i++) {
-            System.out.println((int)((Math.random()*9+1)*100000));
-        }
-
     }
 }

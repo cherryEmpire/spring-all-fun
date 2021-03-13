@@ -3,9 +3,9 @@ package com.cherry.leetcode.array;
 import com.cherry.leetcode.common.ListNode;
 
 /**
- *  @Author: Cherry
- *  @Date: 2020/12/5
- *  @Desc: Issue02 Add Two Numbers
+ * @Author: Cherry
+ * @Date: 2020/12/5
+ * @Desc: Issue02 Add Two Numbers
  */
 public class Issue02 {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {

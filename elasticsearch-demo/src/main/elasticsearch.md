@@ -1,6 +1,7 @@
 # elasticsearch学习笔记
 
 ## 安装部署
+
 ```text
 1. elasticsearch不能用root启动。
 2. 给用户账号授权。

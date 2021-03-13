@@ -78,7 +78,7 @@ public class FileSystemService {
             for (int i = 0, len = files.length; i < len; i++) {
                 temp = files[i];
                 FileNode fileNode = getFile(temp);
-                if(temp.isDirectory()) {
+                if (temp.isDirectory()) {
 
                 }
                 flist.add(fileNode);
@@ -97,7 +97,7 @@ public class FileSystemService {
             fileDto.setFileType(FileType.FILE);
             fileDto.setFileSize(file.length());
         }
-        if(file.isDirectory()) {
+        if (file.isDirectory()) {
             File[] files = file.listFiles();
             List<FileNode> flist = new ArrayList<>(10);
             if (files != null) {
@@ -105,7 +105,7 @@ public class FileSystemService {
                 for (int i = 0, len = files.length; i < len; i++) {
                     temp = files[i];
                     FileNode fileNode = getFile(temp);
-                    if(temp.isDirectory()) {
+                    if (temp.isDirectory()) {
 
                     }
                     flist.add(fileNode);

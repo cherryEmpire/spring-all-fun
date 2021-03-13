@@ -184,7 +184,8 @@
 ### 设备状态查看
 
 1. /icbms/deviceboxinfo/deviceView?_search=false&nd=1606984266281&limit=10&page=1&sidx=&order=asc&_=1606984264765
-    1. request: {_search: false,nd: 1606983375505,limit: 10,page: 1,sidx: ,order: asc,_: 1606983374390,gatewayMac: "",deviceBoxMac: das}
+    1. request: {_search: false,nd: 1606983375505,limit: 10,page: 1,sidx: ,order: asc,_: 1606983374390,gatewayMac: ""
+       ,deviceBoxMac: das}
     2. response: response 如下
 
     ```java
@@ -284,8 +285,11 @@
 
 ### 展位用电量需求配置表
 
-1. /icbms/deviceboxinfo/list?_search=false&nd=1606986230994&limit=10&page=1&sidx=&order=asc&locationId=&deviceBoxNum=121&secBoxGateway=11&standNo=11&_=1606986120252
-    1. request: {_search: false,nd: 1606983375505,limit: 10,page: 1,sidx: , order: asc,locationId: , deviceBoxNum: 121, secBoxGateway: 11, standNo: 11, _: 1606983374390}
+1. /icbms/deviceboxinfo/list?_
+   search=false&nd=1606986230994&limit=10&page=1&sidx=&order=asc&locationId=&deviceBoxNum=121&secBoxGateway=11&standNo=11&_
+   =1606986120252
+    1. request: {_search: false,nd: 1606983375505,limit: 10,page: 1,sidx: , order: asc,locationId: , deviceBoxNum: 121,
+       secBoxGateway: 11, standNo: 11, _: 1606983374390}
     2. response: 如下
 
     ```java
@@ -311,17 +315,17 @@
 2. /icbms/deviceboxinfo/info/{id}
     1. response : class DeviceBoxInfoEntity;
 3. /icbms/deviceboxinfo/save
-   1. request: class DeviceBoxInfoEntity
-   2. response: {code: string,msg:string}
+    1. request: class DeviceBoxInfoEntity
+    2. response: {code: string,msg:string}
 4. /icbms/deviceboxinfo/update
-   1. request: class DeviceBoxInfoEntity
-   2. response: {code: string,msg:string}
+    1. request: class DeviceBoxInfoEntity
+    2. response: {code: string,msg:string}
 5. /icbms/deviceboxinfo/delete
-   1. request: Array<String> ids;
-   2. response: {code: string,msg:string}
+    1. request: Array<String> ids;
+    2. response: {code: string,msg:string}
 6. /icbms/deviceboxinfo/findDeviceBoxsInfoByLId
-   1. request: String locationId;
-   2. response: 如下;
+    1. request: String locationId;
+    2. response: 如下;
 
     ```java
     class Result {
@@ -332,8 +336,8 @@
     ```
 
 7. /icbms/deviceboxinfo/findMapDeviceBoxsInfo
-   1. request: String locationId, String showBoxOnline;
-   2. response: 如下;
+    1. request: String locationId, String showBoxOnline;
+    2. response: 如下;
 
    ```java
     class Result {
@@ -344,8 +348,8 @@
     ```
 
 8. /icbms/deviceboxinfo/setDeboxInfoXy
-   1. request: String deviceBoxInfoId, String fx, String fy;
-   2. response: 如下;
+    1. request: String deviceBoxInfoId, String fx, String fy;
+    2. response: 如下;
 
     ```java
     class Result {
@@ -356,8 +360,8 @@
     ```
 
 9. /icbms/deviceboxinfo/resetXy
-   1. request: String deviceBoxInfoId, String fx, String fy;
-   2. response: 如下;
+    1. request: String deviceBoxInfoId, String fx, String fy;
+    2. response: 如下;
 
     ```java
     class Result {
@@ -566,8 +570,10 @@
 
 ### 告警报表
 
-1. /icbms/report/alarm/list?_search=false&nd=1606984871663&limit=10&page=1&sidx=&order=asc&beginTime=2020-12-24&endTime=2021-01-01&_=1606985083979
-    1. requse: {_search: false,nd: 1606983375505,limit: 10,page: 1,sidx: ,order: asc,_: 1606983374390, beginTime: 2020-12-24,endTime: 2021-01-01}
+1. /icbms/report/alarm/list?_
+   search=false&nd=1606984871663&limit=10&page=1&sidx=&order=asc&beginTime=2020-12-24&endTime=2021-01-01&_=1606985083979
+    1. requse: {_search: false,nd: 1606983375505,limit: 10,page: 1,sidx: ,order: asc,_: 1606983374390, beginTime:
+       2020-12-24,endTime: 2021-01-01}
     2. response: 如下
 
     ```java
@@ -633,8 +639,10 @@
 
 ### 电量报表
 
-1. /icbms/report/electric/list?_search=false&nd=1606985084311&limit=10&page=1&sidx=&order=asc&beginTime=2020-12-24&endTime=2021-01-01&_=1606985083979
-    1. request: {_search: false,nd: 1606983375505,limit: 10,page: 1,sidx: ,order: asc,_: 1606983374390, beginTime: 2020-12-24,endTime: 2021-01-01}
+1. /icbms/report/electric/list?_
+   search=false&nd=1606985084311&limit=10&page=1&sidx=&order=asc&beginTime=2020-12-24&endTime=2021-01-01&_=1606985083979
+    1. request: {_search: false,nd: 1606983375505,limit: 10,page: 1,sidx: ,order: asc,_: 1606983374390, beginTime:
+       2020-12-24,endTime: 2021-01-01}
     2. response: 如下
 
     ```java
@@ -673,8 +681,11 @@
 
 ### 当日用电监控
 
-1. /icbms/report/electricdaily/list?_search=false&nd=1606989407924&limit=50&page=1&sidx=&order=asc&deviceBoxNum=1&secBoxGateway=1&standNo=1&_=1606989382630
-    1. requset: {_search: false,nd: 1606983375505,limit: 10,page: 1,sidx: ,order: asc,_: 1606983374390, deviceBoxNum: 1,secBoxGateway: 1,standNo: 1}
+1. /icbms/report/electricdaily/list?_
+   search=false&nd=1606989407924&limit=50&page=1&sidx=&order=asc&deviceBoxNum=1&secBoxGateway=1&standNo=1&_
+   =1606989382630
+    1. requset: {_search: false,nd: 1606983375505,limit: 10,page: 1,sidx: ,order: asc,_: 1606983374390, deviceBoxNum:
+       1,secBoxGateway: 1,standNo: 1}
     2. response: 如下。
 
     ```java

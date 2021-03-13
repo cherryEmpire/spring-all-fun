@@ -29,5 +29,5 @@ public class DaemonThread {
 
 /**
  * A<---------------------------------->B
- *  ->daemonThread(health check)
- * */
+ * ->daemonThread(health check)
+ */

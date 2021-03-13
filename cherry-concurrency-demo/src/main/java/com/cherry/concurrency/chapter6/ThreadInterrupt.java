@@ -3,7 +3,7 @@ package com.cherry.concurrency.chapter6;
 public class ThreadInterrupt {
 
     @SuppressWarnings("unused")
-	private static final Object MONITOR = new Object();
+    private static final Object MONITOR = new Object();
 
     public static void main(String[] args) {
 

@@ -2,13 +2,12 @@ package com.cherry.concurrency.chapter8;
 
 public class DeadLock {
 
+    private final Object lock = new Object();
     private OtherService otherService;
 
     public DeadLock(OtherService otherService) {
         this.otherService = otherService;
     }
-
-    private final Object lock = new Object();
 
     public void m1() {
         synchronized (lock) {

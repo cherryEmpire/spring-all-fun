@@ -14,7 +14,7 @@ public class ThreadException {
                 Thread.sleep(5_000L);
                 int result = A / B;
                 System.out.println(result);
-            } catch (InterruptedException e) { 
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });

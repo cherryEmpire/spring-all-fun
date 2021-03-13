@@ -1,4 +1,3 @@
-
 package com.cherry.concurrency.chapter9;
 
 import java.util.stream.Stream;
@@ -12,7 +11,7 @@ public class DifferenceOfWaitAndSleep {
                 new Thread(name) {
                     @Override
                     public void run() {
-                    	m2();
+                        m2();
                     }
                 }.start()
         );

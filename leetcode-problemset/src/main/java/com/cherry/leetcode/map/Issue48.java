@@ -7,6 +7,12 @@ package com.cherry.leetcode.map;
  */
 public class Issue48 {
 
+    public static void main(String[] args) {
+        int[][] res = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
+        Issue48 issue48 = new Issue48();
+        issue48.rotate(res);
+    }
+
     public void rotate(int[][] matrix) {
         if (matrix.length == 0 || matrix.length == 1) {
             return;
@@ -26,11 +32,5 @@ public class Issue48 {
                 matrix[j][i] = temp;
             }
         }
-    }
-
-    public static void main(String[] args) {
-        int[][] res = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        Issue48 issue48 = new Issue48();
-        issue48.rotate(res);
     }
 }

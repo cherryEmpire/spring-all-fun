@@ -10,9 +10,10 @@
 <body>
 <!--<div th:replace="header::header1"></div><br/><br/><br/>-->
 <div class="panel panel-default">
-    <div class="panel-body" align="center">
-        <div id="a1" align="center" th:text="${title}"></div><br/>
-        <video width="600" height="400" align="center" controls>
+    <div align="center" class="panel-body">
+        <div align="center" id="a1" th:text="${title}"></div>
+        <br/>
+        <video align="center" controls height="400" width="600">
             <source th:src="@{${path}}" type="video/mp4">
 
             您的浏览器不支持 HTML5 video 标签。

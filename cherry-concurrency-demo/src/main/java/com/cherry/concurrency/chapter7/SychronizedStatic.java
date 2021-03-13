@@ -1,4 +1,4 @@
- package com.cherry.concurrency.chapter7;
+package com.cherry.concurrency.chapter7;
 
 public class SychronizedStatic {
 
