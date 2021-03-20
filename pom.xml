@@ -17,6 +17,7 @@
         <module>video-player-demo</module>
         <module>message-mq-demo</module>
         <module>cherry-concurrency-demo</module>
+        <module>fast-dfs-demo</module>
     </modules>
 
     <parent>
