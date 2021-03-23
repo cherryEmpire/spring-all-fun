@@ -26,7 +26,11 @@
         <!--            <artifactId>springfox-swagger2</artifactId>-->
         <!--            <version>${swagger2.version}</version>-->
         <!--        </dependency>-->
-
+        <dependency>
+            <groupId>com.cherry.leetcode</groupId>
+            <artifactId>cherry-common</artifactId>
+            <version>1.0.1.RC</version>
+        </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>

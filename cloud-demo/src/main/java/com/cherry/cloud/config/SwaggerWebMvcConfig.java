@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @Date: 2020/12/6
  * @Desc: SwaggerWebMvcConfig
  */
-@Configuration
+//@Configuration
 public class SwaggerWebMvcConfig implements WebMvcConfigurer {
 
     @Override

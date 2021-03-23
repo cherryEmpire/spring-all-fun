@@ -1,5 +1,7 @@
 package com.cherry.common.vo;
 
+import com.cherry.common.enums.ErrorCodeEnum;
+import com.cherry.common.exception.CherryBusinessException;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -18,6 +20,24 @@ public class CommonResult<T> {
     public static CommonResult succeed(Object data) {
         CommonResult<Object> commonResult = new CommonResult<>();
         commonResult.success(data);
+        return commonResult;
+    }
+
+    public static CommonResult succeed(int code, String message, Object data) {
+        CommonResult<Object> commonResult = new CommonResult<>();
+        commonResult.success(code, message, data);
+        return commonResult;
+    }
+
+    public static CommonResult defineException(CherryBusinessException exception) {
+        CommonResult<Object> commonResult = new CommonResult<>();
+        commonResult.error(exception.getCode(), exception.getMessage());
+        return commonResult;
+    }
+
+    public static CommonResult undefineException(ErrorCodeEnum errorCodeEnum) {
+        CommonResult<Object> commonResult = new CommonResult<>();
+        commonResult.error(errorCodeEnum.getCode(), errorCodeEnum.getMessage());
         return commonResult;
     }
 
@@ -52,14 +72,22 @@ public class CommonResult<T> {
     }
 
     public CommonResult success(T data) {
-        this.code = 200;
-        this.message = "SUCCESS";
+        return this.success(200, "SUCCESS", data);
+    }
+
+    public CommonResult success(int code, String message, T data) {
+        this.code = code;
+        this.message = message;
         this.data = data;
         return this;
     }
 
     public CommonResult error(String errorMsg) {
-        this.code = 500;
+        return this.error(500, errorMsg);
+    }
+
+    public CommonResult error(int code, String errorMsg) {
+        this.code = code;
         this.message = StringUtils.isBlank(errorMsg) ? "ERROR" : errorMsg;
         return this;
     }

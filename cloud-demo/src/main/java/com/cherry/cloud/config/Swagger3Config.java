@@ -18,7 +18,7 @@ import springfox.documentation.spring.web.plugins.Docket;
  * <p>
  * https://blog.csdn.net/qq_15973399/article/details/107436089
  */
-@Configuration
+//Configuration
 public class Swagger3Config {
 
     /**
