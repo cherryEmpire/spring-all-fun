@@ -23,7 +23,7 @@ public class Swagger3CommonConfig {
      */
     public static final String SWAGGER_SCAN_BASE_PACKAGE = "com.cherry";
 
-    public static final String VERSION = "1.0.1.RC";
+    public static final String VERSION = "2.0.0.RC";
 
     @Bean
     public Docket createRestApi() {
