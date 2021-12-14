@@ -18,6 +18,9 @@
         <module>message-mq-demo</module>
         <module>cherry-concurrency-demo</module>
         <module>fast-dfs-demo</module>
+        <module>rpc-api</module>
+        <module>rpc-provider</module>
+        <module>jvm-cherry-study</module>
         <module>neo4j-demo</module>
     </modules>
 
