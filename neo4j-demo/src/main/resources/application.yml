@@ -1,0 +1,6 @@
+spring:
+  neo4j:
+    authentication:
+      password: dasd
+      username: dsd
+    uri: bolt://localhost:7687
