@@ -15,13 +15,14 @@
         <module>db-common</module>
         <module>send-sms-demo</module>
         <module>video-player-demo</module>
-        <module>message-mq-demo</module>
+        <module>message-mq-producer-demo</module>
         <module>cherry-concurrency-demo</module>
         <module>fast-dfs-demo</module>
         <module>rpc-api</module>
         <module>rpc-provider</module>
         <module>jvm-cherry-study</module>
         <module>neo4j-demo</module>
+        <module>message-mq-consumer-demo</module>
     </modules>
 
     <parent>
